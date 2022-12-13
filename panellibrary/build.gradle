@@ -35,33 +35,24 @@ android {
 repositories {
     google()
     mavenCentral()
-    /*flatDir {
-        dirs 'libs'
-    }*/
     maven {
-        url 'http://download.flutter.io'
-        allowInsecureProtocol = true
+        //url "https://dev-tappp-panel.s3.us-east-2.amazonaws.com/build/host/outputs/repo/"
+        url "/home/lt-183/Desktop/tudip-work/TAPPP/tappp_panel/build/host/outputs/repo"
     }
     maven {
-        url "https://dev-tappp-panel.s3.us-east-2.amazonaws.com/build/host/outputs/repo/"
-        //url "../flutter_lib"
+        url "https://storage.googleapis.com/download.flutter.io"
     }
 }
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
+    //implementation files('libs/flutter.jar')
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
-    debugImplementation 'com.example.tappp_panel:flutter:1.0:debug'
-    profileImplementation 'com.example.tappp_panel:flutter:1.0:profile'
-    releaseImplementation 'com.example.tappp_panel:flutter:1.0:release'
-    /*implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation(name:'flutter-debug', ext:'aar')
-    implementation(name:'flutter-debug', ext:'aar')*/
-    /*debugImplementation 'com.example.tappp_panel:flutter_debug:1.0'
-    profileImplementation 'com.example.flutter_module_rn:flutter_profile:1.0'
-    releaseImplementation 'com.example.tappp_panel:flutter_release:1.0'*/
+    debugImplementation 'com.example.tappp_panel:flutter_debug:1.0'
+    //profileImplementation 'com.example.flutter_module_rn:flutter_profile:1.0'
+    //releaseImplementation 'com.example.tappp_panel:flutter_release:1.0'
 }
