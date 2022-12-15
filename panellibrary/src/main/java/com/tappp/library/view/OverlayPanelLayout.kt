@@ -5,14 +5,12 @@ import android.util.AttributeSet
 import android.widget.FrameLayout
 import androidx.fragment.app.FragmentManager
 import com.tappp.library.constant.Constants
-import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragment
 import io.flutter.embedding.android.RenderMode
 import io.flutter.embedding.android.TransparencyMode
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
 import io.flutter.embedding.engine.dart.DartExecutor
-import io.flutter.plugin.common.MethodChannel
 
 /**
  * Created by Tejas A. Prajapati on 30/11/22.
@@ -52,6 +50,31 @@ class OverlayPanelLayout : FrameLayout {
             FlutterEngineCache.getInstance().put(Constants.FLUTTER_ENGINE_ID, flutterEngine)
             val flutterFragment = FlutterFragment
                 .withCachedEngine(Constants.FLUTTER_ENGINE_ID)
+                .renderMode(RenderMode.texture)
+                .transparencyMode(TransparencyMode.transparent)
+                .shouldAttachEngineToActivity(false)
+                .build<FlutterFragment>()
+
+            supportFragmentManager
+                .beginTransaction()
+                .add(fragmentContainer, flutterFragment, TAG_FLUTTER_FRAGMENT)
+                .commit()
+        }
+    }
+
+    fun init(mContex:Context,supportFragmentManager: FragmentManager, fragmentContainer: Int) {
+        this.supportFragmentManager = supportFragmentManager
+        this.fragmentContainer = fragmentContainer;
+        flutterFragment = supportFragmentManager
+            .findFragmentByTag(TAG_FLUTTER_FRAGMENT) as FlutterFragment?
+        if (flutterFragment == null) {
+            flutterEngine = FlutterEngine(mContex)
+            flutterEngine!!.dartExecutor.executeDartEntrypoint(
+                DartExecutor.DartEntrypoint.createDefault()
+            )
+           FlutterEngineCache.getInstance().put(Constants.FLUTTER_ENGINE_ID, flutterEngine)
+            val flutterFragment = FlutterFragment
+                .withNewEngine()
                 .renderMode(RenderMode.texture)
                 .transparencyMode(TransparencyMode.transparent)
                 .shouldAttachEngineToActivity(false)
